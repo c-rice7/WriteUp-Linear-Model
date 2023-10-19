@@ -1,0 +1,38 @@
+---
+title: "Linear Model With Prediction"
+author: "Connor Rice"
+output: 
+  html_document:
+    number_sections: false
+    toc: true
+    toc_depth: 5
+date: "`r Sys.Date()`"    
+    
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r include=FALSE,echo=FALSE}
+require(tidyverse)
+require(tigerstats)
+require(knitr)
+require(foreign)
+
+data <- read.csv(file="https://onlinestatbook.com/case_studies_rvls/physical_strength/data.txt",sep="",header=TRUE)
+
+```
+
+```{r}
+model.1 <- lm(Height~dadheight,data=davisdata)
+summary.lm(model.1)
+```
+
+```{r}
+anova(model.1,model.2)
+```
+
+```{r}
+plot(TukeyHSD(model1))
+```
