@@ -19,8 +19,8 @@ require(tidyverse)
 require(tigerstats)
 require(knitr)
 require(foreign)
-install.packages("ggplot2")
-require(ggplot2)
+install.packages("car")
+require(car)
 
 mydata <- read.csv(file="https://onlinestatbook.com/case_studies_rvls/physical_strength/data.txt",sep="",header=TRUE)
 
@@ -31,25 +31,29 @@ model1 <- lm(SIMS~ARM,data=mydata)
 plot(SIMS~ARM,data=mydata)
 abline(model1)
 specificdata1 <- data.frame(GRIP = 94, ARM = 88)
-predict(model1, specificdata1, interval="confidence")
+predict(model1, specificdata1, interval="prediction")
 ```
+
+The 95% prediction interval for the prediction of SIMS by ARM at the specific value of GRIP=94 ARM=88, has a prediction range between -1.726209 and 3.138977 with a total prediction range of: 4.865186.
 
 ```{r}
 model2 <- lm(SIMS~GRIP,data=mydata)
 plot(SIMS~GRIP,data=mydata)
 abline(model2)
 specificdata2 <- data.frame(GRIP = 94, ARM = 88)
-predict(model2, specificdata2, interval="confidence")
+predict(model2, specificdata2, interval="prediction")
 ```
+
+The 95% prediction interval for the prediction of SIMS by GRIP at the specific value of GRIP=94 ARM=88, has a prediction range between -3.107961 and 2.035652 with a total prediction range of: 5.143613.
 
 ```{r}
 model3 <- lm(SIMS~ARM + GRIP,data=mydata)
 avPlots(model3)
-abline(model3)
 specificdata3 <- data.frame(GRIP = 94, ARM = 88)
-predict(model3, specificdata3, interval="confidence")
+predict(model3, specificdata3, interval="prediction")
 ```
 
+The 95% prediction interval for the prediction of SIMS by the combination of ARMS and GRIP at the specific value of GRIP=94 ARM=88, has a prediction range between -2.132373 and 2.431668 with a total prediction range of: 4.564041. 
 
 ```{r}
 anova(model1,model3)
