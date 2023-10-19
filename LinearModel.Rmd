@@ -19,20 +19,38 @@ require(tidyverse)
 require(tigerstats)
 require(knitr)
 require(foreign)
+install.packages("ggplot2")
+require(ggplot2)
 
-data <- read.csv(file="https://onlinestatbook.com/case_studies_rvls/physical_strength/data.txt",sep="",header=TRUE)
+mydata <- read.csv(file="https://onlinestatbook.com/case_studies_rvls/physical_strength/data.txt",sep="",header=TRUE)
 
 ```
 
 ```{r}
-model.1 <- lm(Height~dadheight,data=davisdata)
-summary.lm(model.1)
+model1 <- lm(SIMS~ARM,data=mydata)
+plot(SIMS~ARM,data=mydata)
+abline(model1)
+specificdata1 <- data.frame(GRIP = 94, ARM = 88)
+predict(model1, specificdata1, interval="confidence")
 ```
 
 ```{r}
-anova(model.1,model.2)
+model2 <- lm(SIMS~GRIP,data=mydata)
+plot(SIMS~GRIP,data=mydata)
+abline(model2)
+specificdata2 <- data.frame(GRIP = 94, ARM = 88)
+predict(model2, specificdata2, interval="confidence")
 ```
 
 ```{r}
-plot(TukeyHSD(model1))
+model3 <- lm(SIMS~ARM + GRIP,data=mydata)
+avPlots(model3)
+abline(model3)
+specificdata3 <- data.frame(GRIP = 94, ARM = 88)
+predict(model3, specificdata3, interval="confidence")
+```
+
+
+```{r}
+anova(model1,model3)
 ```
