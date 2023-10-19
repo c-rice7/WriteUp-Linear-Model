@@ -32,16 +32,18 @@ plot(SIMS~ARM,data=mydata)
 abline(model1)
 specificdata1 <- data.frame(GRIP = 94, ARM = 88)
 predict(model1, specificdata1, interval="prediction")
+cor(mydata$SIMS, mydata$ARM)
 ```
 
 The 95% prediction interval for the prediction of SIMS by ARM at the specific value of GRIP=94 ARM=88, has a prediction range between -1.726209 and 3.138977 with a total prediction range of: 4.865186.
 
 ```{r}
 model2 <- lm(SIMS~GRIP,data=mydata)
-plot(SIMS~GRIP,data=mydata)
+plot(SIMS~GRIP,data=mydata, main= "SIMS vs GRIP")
 abline(model2)
 specificdata2 <- data.frame(GRIP = 94, ARM = 88)
 predict(model2, specificdata2, interval="prediction")
+cor(mydata$SIMS, mydata$GRIP)
 ```
 
 The 95% prediction interval for the prediction of SIMS by GRIP at the specific value of GRIP=94 ARM=88, has a prediction range between -3.107961 and 2.035652 with a total prediction range of: 5.143613.
