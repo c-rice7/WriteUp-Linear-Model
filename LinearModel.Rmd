@@ -26,6 +26,12 @@ mydata <- read.csv(file="https://onlinestatbook.com/case_studies_rvls/physical_s
 
 ```
 
+The analysis of SIMS scores compared to ARM and GRIP strength will be done using code blocks from the NUM~NUM helper file edited to fit the data frame provided.
+
+$H_0$ There is no difference in the ability to predict SIMS score between arm strength, grip strength, or a combination of the two.
+
+$H_A$ There is a statistically significant difference in the ability to predict SIMS score between arm strength, grip strength, or a combination of the two.
+
 ```{r}
 model1 <- lm(SIMS~ARM,data=mydata)
 plot(SIMS~ARM,data=mydata)
@@ -52,7 +58,6 @@ model3 <- lm(SIMS~ARM + GRIP,data=mydata)
 avPlots(model3)
 specificdata3 <- data.frame(GRIP = 94, ARM = 88)
 predict(model3, specificdata3, interval="prediction")
-cor(mydata$SIMS~mydata$ARM + GRIP)
 ```
 
 The 95% prediction interval for the prediction of SIMS by the combination of ARMS and GRIP at the specific value of GRIP=94 ARM=88, has a prediction range between -2.132373 and 2.431668 with a total prediction range of: 4.564041. This is the smallest prediction range of any of the models, making it the best predictor of the SIMS value at the given point of ARM = 88 and GRIP = 94.
@@ -61,4 +66,4 @@ The 95% prediction interval for the prediction of SIMS by the combination of ARM
 anova(model1,model3)
 ```
 
-
+The very small p-value returned by the anova test (.000004994) confirms that the difference seen between the best two predictor models, models 1 and 3, is significant and allows for the null hypothesis to be rejected. I feel it is unnecessary to run a anova between the other potential model pairings due to the large difference in prediction range in model 2 compared to the best two models.
